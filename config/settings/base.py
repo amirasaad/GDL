@@ -74,10 +74,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 
-LOCAL_APPS = [
-    "gdrive.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
-]
+LOCAL_APPS = ["gdrive.users.apps.UsersConfig", "gdrive.drive.apps.DriveConfig"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

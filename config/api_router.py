@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from gdrive.drive.api.views import GFileViewSet
 from gdrive.users.api.views import UserViewSet
 
 if settings.DEBUG:
@@ -9,6 +10,7 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
+router.register("files", GFileViewSet)
 
 
 app_name = "api"

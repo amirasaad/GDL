@@ -18,7 +18,7 @@ python << END
 import sys
 
 from MySQLdb import _mysql
-print("mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}")
+
 try:
     _mysql.connect(
         host="${MYSQL_HOST}",
