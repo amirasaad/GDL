@@ -25,3 +25,6 @@ class GFile(TimeStampedModel):
         upload_to=user_directory_path,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "ppt", "pptx"])],
     )
+
+    class Meta:
+        ordering = ["-created"]

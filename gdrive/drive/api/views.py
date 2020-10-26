@@ -16,7 +16,9 @@ class GFileViewSet(
     queryset = GFile.objects.all()
     permission_classes = [AllowAny]
     serializer_class = GFileSerializer
+    lookup_field = "pk"
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
             serializer.save(user=self.request.user)
+        serializer.save()

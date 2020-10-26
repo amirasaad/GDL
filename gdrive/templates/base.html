@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}Google Drive Like{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %} Google Drive Like</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Google Drive">
     <meta name="author" content="Amir Asaad">
@@ -15,19 +15,19 @@
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
-    {% block css %}
-
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
     <!-- Your stuff: Third-party CSS libraries go here -->
+    <!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+
 
     <!-- This file stores project-specific CSS -->
 
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
-
+    {% block css %}
     {% endblock %}
 
   </head>
@@ -93,7 +93,6 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
 
       <!-- Bootstrap JS and its dependencies-->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -102,12 +101,14 @@
 
       <!-- Your stuff: Third-party javascript libraries go here -->
 
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
       <!-- place project specific Javascript in this file -->
 
       <script src="{% static 'js/project.js' %}"></script>
 
+      {% block javascript %}
+      {% endblock javascript %}
 
-    {% endblock javascript %}
   </body>
 </html>

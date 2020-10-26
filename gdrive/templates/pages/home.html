@@ -1,1 +1,58 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+{% endblock css %}
+{% block content %}
+    <div class="form-group">
+      <input name="file" type="file" class="form-control-file" id="file-input" multiple>
+    </div>
+
+
+
+<div class="card">
+    <div class="card-body">
+    <h5 class="card-title"><i class="fas fa-folder-open"></i> {% translate "Latest Files" %}</h5>
+    <p class="card-text">
+        <div id="files"></div>
+
+    </p>
+    <p class="card-text"><small class="text-muted"></small></p>
+</div>
+
+{% endblock content %}
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- the main fileinput plugin file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script>
+    $("#file-input").fileinput({
+        theme: "fas",
+        uploadUrl: "/api/files/",
+        allowedFileTypes: ['pdf', 'ppt', 'pptx']
+    }).on('fileuploaded', function(event, previewId, index, fileId) {
+        console.log('File Uploaded', 'ID: ' + fileId + ', Thumb ID: ' + previewId);
+    });
+
+
+    $.get('/api/files', function (data) {
+        console.log(data)
+        $("#files").append('<ul class="list-group">')
+        data.results.forEach(element => {
+            $("#files").append(
+                '<li class="list-group-item">' + element.name + ' <small class="text-muted">(Uploaded '+ moment(element.created).fromNow() + ')</small>' +
+
+                '<a target="_blank" href="' + encodeURI(element.file) + '"type="button" class="btn btn-success float-right"><i class="fas fa-cloud-download-alt"></i></a>' + '</li>')
+        });
+        $("#files").append("</ul>")
+    });
+</script>
+{% endblock javascript %}
