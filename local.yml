@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 volumes:
     db_data: {}
@@ -13,6 +13,7 @@ services:
     depends_on:
       - db
       - mailhog
+      - solr
     volumes:
       - .:/app:z
     env_file:
@@ -24,6 +25,7 @@ services:
 
   db:
     image: mysql:8.0
+    container_name: db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
@@ -58,3 +60,19 @@ services:
     container_name: mailhog
     ports:
       - "8025:8025"
+
+  solr:
+    image: solr:8.6.3-slim
+    container_name: solr
+    restart: always
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./compose/local/solr/drive:/opt/solr/server/solr/configsets/drive:rw
+    entrypoint:
+    - bash
+    - "-c"
+    - "precreate-core drive /opt/solr/server/solr/configsets/drive ;\
+       exec solr -f"
+    environment:
+      - SOLR_HEAP=500m

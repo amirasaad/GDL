@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    "haystack",
 ]
 
 LOCAL_APPS = ["gdrive.users.apps.UsersConfig", "gdrive.drive.apps.DriveConfig"]
@@ -282,3 +283,10 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+    "default": {
+        "ENGINE": "haystack.backends.solr_backend.SolrEngine",
+        "URL": env("SOLR_URL"),
+        "ADMIN_URL": env("ADMIN_URL"),
+    },
+}

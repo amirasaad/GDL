@@ -22,6 +22,7 @@ RUN apt-get update \
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
 # All imports needed for autodoc.
+RUN pip install --upgrade pip
 RUN pip install -r /requirements/local.txt -r /requirements/production.txt
 
 WORKDIR /docs

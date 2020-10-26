@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.utils.functional import cached_property
 from model_utils.models import TimeStampedModel
+from rest_framework.reverse import reverse
 
 User = get_user_model()
 
@@ -28,3 +30,13 @@ class GFile(TimeStampedModel):
 
     class Meta:
         ordering = ["-created"]
+
+    @cached_property
+    def title(self):
+        return self.file.name.split("/").pop()
+
+    def get_absolute_url(self):
+        return reverse("api:file-detail", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return self.title

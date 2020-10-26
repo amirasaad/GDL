@@ -6,4 +6,5 @@ IPYTHONDIR=/app/.ipython
 
 DJANGO_SETTINGS_MODULE=config.settings.local
 
-DATABASE_URL=mysql://AEjMowCdJokbcFyTmAGGFiptqoNMUGpH:IjA0DY8hDqsbdnco7oQRMtSTSXzrKaIom5QvECNrL3vD0voUTuuGS09H6LpM6a9o@localhost:3306/gdrive
+SOLR_URL=http://solr:8983/solr/drive
+ADMIN_URL=http://solr:8983/solr/admin/cores

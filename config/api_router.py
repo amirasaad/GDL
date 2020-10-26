@@ -10,7 +10,7 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
-router.register("files", GFileViewSet)
+router.register("files", GFileViewSet, basename="file")
 
 
 app_name = "api"
