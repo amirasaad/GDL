@@ -9,8 +9,8 @@ User = get_user_model()
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     if instance.user is None:
-        return f"files/{filename}"
-    return f"files/user_{instance.user.id}/files/{filename}"
+        return f"files/{instance.id}/{filename}"
+    return f"files/users/{instance.user.id}/files/{instance.id}/{filename}"
 
 
 class GFile(TimeStampedModel):
