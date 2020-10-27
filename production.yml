@@ -43,3 +43,19 @@ services:
       - "0.0.0.0:443:443"
     depends_on:
       - django
+
+  solr:
+    image: solr:6.6.6-slim
+    container_name: solr
+    restart: always
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./compose/local/solr/drive:/opt/solr/server/solr/configsets/drive:rw
+    entrypoint:
+    - bash
+    - "-c"
+    - "precreate-core drive /opt/solr/server/solr/configsets/drive ;\
+       exec solr -f"
+    environment:
+      - SOLR_HEAP=500m

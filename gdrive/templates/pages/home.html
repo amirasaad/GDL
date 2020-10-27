@@ -36,8 +36,8 @@
 <script>
     $("#file-input").fileinput({
         theme: "fas",
-        uploadUrl: "/api/files/",
-        allowedFileTypes: ['pdf', 'ppt', 'pptx']
+        uploadUrl: "/api/files/"
+
     }).on('fileuploaded', function(event, previewId, index, fileId) {
         console.log('File Uploaded', 'ID: ' + fileId + ', Thumb ID: ' + previewId);
     });
@@ -50,7 +50,7 @@
             $("#files").append(
                 '<li class="list-group-item">' + element.name + ' <small class="text-muted">(Uploaded '+ moment(element.created).fromNow() + ')</small>' +
 
-                '<a target="_blank" href="' + encodeURI(element.file) + '"type="button" class="btn btn-success float-right"><i class="fas fa-cloud-download-alt"></i></a>' + '</li>')
+                '<a target="_blank" href="' + encodeURI(element.url) + '"type="button" class="btn btn-success float-right"><i class="fas fa-cloud-download-alt"></i></a>' + '</li>')
         });
         $("#files").append("</ul>")
     });

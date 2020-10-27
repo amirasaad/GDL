@@ -1,11 +1,9 @@
 from django.urls import path
 
-from .views import PeriodicalSearchView
+from .views import GfileDetailView
+
+app_name = "drive"
 
 urlpatterns = [
-    path(
-        "search/",
-        PeriodicalSearchView(template="search/search.html"),
-        name="haystack_search",
-    ),
+    path("files/<int:pk>/", view=GfileDetailView.as_view(), name="file-detail"),
 ]

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}File: {{ object.title }} {% endblock %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col">
+
+      <div class="card text-center">
+        <div class="card-header">
+          {{ object.title }}
+        </div>
+        <div class="card-body">
+          <object data="{{ object.file.url }}"  width="100%" height="800px" ></object>
+        </div>
+        <div class="card-footer text-muted">
+
+          <a class="btn btn-success" href="{{ object.file.url }}" role="button"><i class="fas fa-cloud-download-alt"></i> Download</a>
+          <p>Uploaded {{ object.created|naturaltime }}</p>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+{% endblock content %}

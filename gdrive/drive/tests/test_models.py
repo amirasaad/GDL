@@ -24,4 +24,4 @@ class TestGFileModel(TestCase):
         gfile = GFile.objects.create(
             file=SimpleUploadedFile(file_name, b"some content")
         )
-        assert gfile.get_absolute_url() == f"/api/files/{gfile.pk}/"
+        assert gfile.get_absolute_url() == f"/drive/files/{gfile.pk}/"
