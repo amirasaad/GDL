@@ -1,9 +1,7 @@
 version: '3'
 
 volumes:
-  production_postgres_data: {}
-  production_postgres_data_backups: {}
-  production_traefik: {}
+  db_data: {}
 
 services:
   django:
@@ -12,11 +10,12 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     image: gdrive_production_django
     depends_on:
-      - postgres
+      - db
       - redis
+      - solr
     env_file:
       - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+      - ./.envs/.production/.mysql
     command: /start
 
   db:
@@ -28,7 +27,7 @@ services:
     volumes:
        - db_data:/var/lib/mysql
     env_file:
-      - ./.envs/.local/.mysql
+      - ./.envs/.production/.mysql
 
   redis:
     image: redis:5.0
@@ -37,6 +36,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
+    image: gdrive_production_nginx
     env_file: .env
     ports:
       - "0.0.0.0:80:80"
