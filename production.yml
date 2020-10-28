@@ -10,27 +10,11 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     image: gdrive_production_django
     depends_on:
-      - db
-      - redis
       - solr
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.mysql
     command: /start
-
-  db:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - '3306:3306'
-    volumes:
-       - db_data:/var/lib/mysql
-    env_file:
-      - ./.envs/.production/.mysql
-
-  redis:
-    image: redis:5.0
 
   nginx:
     build:
@@ -42,6 +26,8 @@ services:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
     depends_on:
+      - django
+    links:
       - django
 
   solr:
