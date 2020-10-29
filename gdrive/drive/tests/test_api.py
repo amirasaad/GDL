@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from gdrive.drive.models import GFile
+from gdrive.drive.models import GFile, GFolder
 
 
 class TestUploadFile(APITestCase):
@@ -64,3 +64,33 @@ class TestUploadFile(APITestCase):
         resp = self.client.post(self.url, data)
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
         self.assertIn("The submitted file is empty.", str(resp.data["file"]))
+
+
+class TestFolder(APITestCase):
+    def setUp(self) -> None:
+        self.url = "/api/folders/"
+
+    def test_create_empty_folder(self):
+        data = {"name": "directory1"}
+        resp = self.client.post(self.url, data)
+        assert resp.status_code == status.HTTP_200_OK
+        assert GFolder.objects.all().count() == 1
+
+    def test_add_file_to_folder(self):
+        file_name = "txt.pdf"
+        doc = GFile.objects.create(file=SimpleUploadedFile(file_name, b"some content"))
+        folder = GFolder.objects.create(name="directory2")
+        resp = self.client.post(f"{self.url}/{folder.id}/add_file", {"file": doc.id})
+        assert resp.status_code == status.HTTP_201_CREATED
+        doc.refresh_from_db()
+        assert doc.folder == folder
+
+    def test_add_folder_to_another_folder(self):
+        folder1 = GFolder.objects.create(name="directory3")
+        folder2 = GFolder.objects.create(name="directory3")
+        resp = self.client.post(
+            f"{self.url}/{folder1.id}/add_folder", {"file": folder2.id}
+        )
+        assert resp.status_code == status.HTTP_201_CREATED
+        folder1.refresh_from_db()
+        assert folder1.folder == folder2
