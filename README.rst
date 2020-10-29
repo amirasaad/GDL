@@ -12,7 +12,7 @@ Google Drive
 .. image:: https://travis-ci.com/amirasaad/googledrivelike.svg?branch=master
     :target: https://travis-ci.com/amirasaad/googledrivelike
 .. image:: https://codecov.io/gh/amirasaad/googledrivelike/branch/master/graph/badge.svg?token=U43Z5IEMFW
-:target: https://codecov.io/gh/amirasaad/googledrivelike
+    :target: https://codecov.io/gh/amirasaad/googledrivelike
 
 :License: MIT
 
