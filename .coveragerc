@@ -1,0 +1,11 @@
+[run]
+include = pastebin/*
+omit = *migrations*,
+       *tests*,
+       *settings*,
+       *urls.py,
+       *wsgi/*,
+       manage.py,
+       *.html
+plugins =
+    django_coverage_plugin
