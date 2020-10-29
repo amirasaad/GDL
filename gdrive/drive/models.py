@@ -38,6 +38,9 @@ class GFile(TimeStampedModel):
             ),
         ],
     )
+    folder = models.ForeignKey(
+        "GFolder", related_name="files", null=True, on_delete=models.SET_NULL
+    )
 
     class Meta:
         ordering = ["-created"]
@@ -51,3 +54,13 @@ class GFile(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+
+class GFolder(TimeStampedModel):
+    user = models.ForeignKey(
+        User, related_name="folders", null=True, on_delete=models.SET_NULL
+    )
+    name = models.CharField(max_length=255)
+    folder = models.ForeignKey(
+        "GFolder", related_name="folders", null=True, on_delete=models.SET_NULL
+    )

@@ -73,14 +73,14 @@ class TestFolder(APITestCase):
     def test_create_empty_folder(self):
         data = {"name": "directory1"}
         resp = self.client.post(self.url, data)
-        assert resp.status_code == status.HTTP_200_OK
+        assert resp.status_code == status.HTTP_201_CREATED
         assert GFolder.objects.all().count() == 1
 
     def test_add_file_to_folder(self):
         file_name = "txt.pdf"
         doc = GFile.objects.create(file=SimpleUploadedFile(file_name, b"some content"))
         folder = GFolder.objects.create(name="directory2")
-        resp = self.client.post(f"{self.url}/{folder.id}/add_file", {"file": doc.id})
+        resp = self.client.post(f"{self.url}{folder.id}/add_file/", {"file": doc.id})
         assert resp.status_code == status.HTTP_201_CREATED
         doc.refresh_from_db()
         assert doc.folder == folder
@@ -89,7 +89,7 @@ class TestFolder(APITestCase):
         folder1 = GFolder.objects.create(name="directory3")
         folder2 = GFolder.objects.create(name="directory3")
         resp = self.client.post(
-            f"{self.url}/{folder1.id}/add_folder", {"file": folder2.id}
+            f"{self.url}{folder1.id}/add_folder/", {"folder": folder2.id}
         )
         assert resp.status_code == status.HTTP_201_CREATED
         folder1.refresh_from_db()
