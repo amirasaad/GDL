@@ -9,7 +9,7 @@ class GFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GFile
-        fields = ["id", "file", "created", "name", "url"]
+        fields = ["id", "file", "created", "name", "url", "folder"]
 
     def get_name(self, obj):
         path = obj.file.name.split("/")

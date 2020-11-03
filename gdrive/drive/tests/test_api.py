@@ -65,6 +65,17 @@ class TestUploadFile(APITestCase):
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
         self.assertIn("The submitted file is empty.", str(resp.data["file"]))
 
+    def test_user_can_upload_file_within_folder(self):
+        simple_file = SimpleUploadedFile(
+            "txt.pdf", b"some content", content_type="application/pdf"
+        )
+        folder = GFolder.objects.create(name="newfiledir")
+        data = {"file": simple_file, "folder": folder.id}
+        resp = self.client.post(self.url, data)
+        assert resp.status_code == status.HTTP_201_CREATED
+        file = GFile.objects.get(pk=resp.data["id"])
+        assert file.folder == folder
+
 
 class TestFolder(APITestCase):
     def setUp(self) -> None:
