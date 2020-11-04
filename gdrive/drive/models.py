@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -27,13 +28,14 @@ class GFile(TimeStampedModel):
     file = models.FileField(
         upload_to=user_directory_path,
         validators=[
+            FileExtensionValidator(allowed_extensions=["pdf", "ppt", "pptx"]),
             FileContentTypeValidator(
                 allowed_content_types=[
                     "application/pdf",
                     "application/vnd.ms-powerpoint",
                     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
                 ]
-            )
+            ),
         ],
     )
 

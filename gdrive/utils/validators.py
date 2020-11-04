@@ -1,3 +1,4 @@
+import magic
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
@@ -24,7 +25,7 @@ class FileContentTypeValidator:
             self.code = code
 
     def __call__(self, value):
-        content_type = value.content_type
+        content_type = magic.from_buffer(value.read(1024), mime=True)
         if (
             self.allowed_content_types is not None
             and content_type not in self.allowed_content_types
