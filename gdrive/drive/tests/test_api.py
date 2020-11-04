@@ -30,7 +30,7 @@ class TestUploadFile(APITestCase):
         print(resp.data)
         assert resp.status_code == status.HTTP_201_CREATED
 
-    def test_user_can_upload_file_wrong_ext_right_content_type(self):
+    def test_user_can_not_upload_file_wrong_ext_right_content_type(self):
         simple_file = SimpleUploadedFile(
             "txt.txt", b"some content", content_type="application/pdf"
         )
@@ -39,7 +39,7 @@ class TestUploadFile(APITestCase):
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
         self.assertIn("File extension “txt” is not allowed.", str(resp.data["file"]))
 
-    def test_user_can_upload_document_not_pdf_or_pptx(self):
+    def test_user_can_not_upload_document_is_not_pdf_or_pptx(self):
         simple_file = SimpleUploadedFile("txt.txt", b"some content")
 
         data = {"name": "test", "file": simple_file}
@@ -57,3 +57,10 @@ class TestUploadFile(APITestCase):
         resp = self.client.get(f"{self.url}{doc.id}/")
         assert resp.status_code == status.HTTP_200_OK
         assert resp.data["name"] == file_name
+
+    def test_user_can_not_upload_empty_file(self):
+        simple_file = SimpleUploadedFile("txt.pdf", b"", content_type="application/pdf")
+        data = {"file": simple_file}
+        resp = self.client.post(self.url, data)
+        assert resp.status_code == status.HTTP_400_BAD_REQUEST
+        self.assertIn("The submitted file is empty.", str(resp.data["file"]))
