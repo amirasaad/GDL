@@ -10,6 +10,8 @@ RUN apt-get update \
     && apt-get install -y default-libmysqlclient-dev  python-dev \
     # Translations dependencies
     && apt-get install -y gettext \
+    # Magic-python
+    && apt-get install -y libmagic1 \
     # Uncomment below lines to enable Sphinx output to latex and pdf
     # && apt-get install -y texlive-latex-recommended \
     # && apt-get install -y texlive-fonts-recommended \

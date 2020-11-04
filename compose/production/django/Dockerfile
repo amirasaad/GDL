@@ -10,6 +10,8 @@ RUN apt-get update \
   && apt-get install -y default-libmysqlclient-dev python-dev \
   # Translations dependencies
   && apt-get install -y gettext \
+  # Magic-python
+  && apt-get install -y libmagic1 \
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
