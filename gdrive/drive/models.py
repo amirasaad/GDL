@@ -1,3 +1,5 @@
+from typing import List
+
 from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -76,7 +78,7 @@ class GFolder(TimeStampedModel):
         """
         base = f"{self.name}/"
         parent = self.folder
-        dirs = []
+        dirs: List[str] = []
         while parent is not None:
             dirs.insert(0, f"{parent.name}/")
             parent = parent.folder

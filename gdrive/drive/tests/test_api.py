@@ -66,9 +66,16 @@ class TestUploadFile(APITestCase):
         self.assertIn("The submitted file is empty.", str(resp.data["file"]))
 
     def test_user_can_upload_file_within_folder(self):
-        simple_file = SimpleUploadedFile(
-            "txt.pdf", b"some content", content_type="application/pdf"
+        pdf = BytesIO(
+            b"%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1"
+            b">>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000"
+            b"0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre"
+            b"f\n149\n%EOF\n"
         )
+        simple_file = SimpleUploadedFile(
+            "txt.pdf", pdf.read(), content_type="application/pdf"
+        )
+
         folder = GFolder.objects.create(name="newfiledir")
         data = {"file": simple_file, "folder": folder.id}
         resp = self.client.post(self.url, data)
