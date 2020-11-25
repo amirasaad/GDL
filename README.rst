@@ -1,7 +1,5 @@
-Google Drive Like
-=================
-
-Google Drive
+GDL
+===
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
@@ -9,10 +7,10 @@ Google Drive
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
      :target: https://github.com/ambv/black
      :alt: Black code style
-.. image:: https://travis-ci.com/amirasaad/googledrivelike.svg?branch=master
-    :target: https://travis-ci.com/amirasaad/googledrivelike
-.. image:: https://codecov.io/gh/amirasaad/googledrivelike/branch/master/graph/badge.svg?token=U43Z5IEMFW
-    :target: https://codecov.io/gh/amirasaad/googledrivelike
+.. image:: https://travis-ci.com/amirasaad/GDL.svg?branch=master
+    :target: https://travis-ci.com/amirasaad/GDL
+.. image:: https://codecov.io/gh/amirasaad/GDL/branch/master/graph/badge.svg?token=U43Z5IEMFW
+    :target: https://codecov.io/gh/amirasaad/GDL
 
 :License: MIT
 
