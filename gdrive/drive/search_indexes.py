@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 from django.template import loader
 from haystack import indexes
 
